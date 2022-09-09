@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Recipe Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <body>
 <h1>My Recipes!</h1>
+
+
+<table id="table" data-toggle="bootstrap-table" data-height="460" data-detail-view="true" data-detail-filter="detailFilter"
+       class="table table-bordered table-hover" style="margin-top: -50px;">
+    <thead>
+        <tr>
+            <td>Image</td>
+            <td>Title</td>
+            <td>Prep Time</td>
+            <td>Cook Time</td>
+            <td>Servings</td>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="recipe : ${recipes}"  data-has-detail-view="true">
+        <td><img th:src="${'data:image/jpeg;charset=utf-8;base64,' + images.get(recipe.id)}" alt=""></td>
+        <td th:text="${recipe.description}"/>
+        <td th:text="${recipe.prepTime}"/>
+        <td th:text="${recipe.cookTime}"/>
+        <td th:text="${recipe.servings}"/>
+    </tr>
+    </tbody>
+</table>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>
