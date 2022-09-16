@@ -29,13 +29,13 @@ public class DataInitilizr implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        UnitOfMeasure tablespoons = uomRepository.findByDescription("tablespoons");
-        UnitOfMeasure teaspoon  = uomRepository.findByDescription("teaspoon");
-        UnitOfMeasure ounces  = uomRepository.findByDescription("ounces");
-        UnitOfMeasure cup  = uomRepository.findByDescription("cup");
-        UnitOfMeasure eachUom  = uomRepository.findByDescription("each");
-        UnitOfMeasure dashUom  = uomRepository.findByDescription("dash");
-        UnitOfMeasure pintUom  = uomRepository.findByDescription("pint");
+        UnitOfMeasure tablespoons = uomRepository.findByDescription("tablespoons").orElse(null);
+        UnitOfMeasure teaspoon  = uomRepository.findByDescription("teaspoon").orElse(null);
+        UnitOfMeasure ounces  = uomRepository.findByDescription("ounces").orElse(null);
+        UnitOfMeasure cup  = uomRepository.findByDescription("cup").orElse(null);
+        UnitOfMeasure eachUom  = uomRepository.findByDescription("each").orElse(null);
+        UnitOfMeasure dashUom  = uomRepository.findByDescription("dash").orElse(null);
+        UnitOfMeasure pintUom  = uomRepository.findByDescription("pint").orElse(null);
         Category breakfast = new Category();
         breakfast.setDescription("Breakfast");
         breakfast = categoryRepository.save(breakfast);
@@ -78,8 +78,8 @@ public class DataInitilizr implements ApplicationRunner {
         recipeRepository.save(recipe1);
 
         //get Categories
-        Category americanCategory = categoryRepository.findByDescription("American");
-        Category mexicanCategory = categoryRepository.findByDescription("Mexican");
+        Category americanCategory = categoryRepository.findByDescription("American").orElse(null);
+        Category mexicanCategory = categoryRepository.findByDescription("Mexican").orElse(null);
 
         //Yummy Guac
         Recipe guacRecipe = new Recipe();
