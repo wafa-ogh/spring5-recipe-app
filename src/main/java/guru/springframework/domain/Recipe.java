@@ -46,4 +46,10 @@ public class Recipe {
         this.ingredients.add(ingredient);
         return this;
     }
+
+    public Recipe removeIngredient(Ingredient ingredient){
+        ingredient.setRecipe(null);
+        this.ingredients.removeIf(ingredient1 -> ingredient1.getId().equals(ingredient.getId()));
+        return this;
+    }
 }
