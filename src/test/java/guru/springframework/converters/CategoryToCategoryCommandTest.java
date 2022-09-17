@@ -1,7 +1,7 @@
 package guru.springframework.converters;
 
 import guru.springframework.commands.CategoryCommand;
-import guru.springframework.model.Category;
+import guru.springframework.domain.Category;
 import org.junit.Before;
 import org.junit.Test;
 

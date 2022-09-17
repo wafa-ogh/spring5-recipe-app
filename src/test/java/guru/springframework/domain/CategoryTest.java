@@ -1,4 +1,4 @@
-package guru.springframework.model;
+package guru.springframework.domain;
 
 import org.junit.Before;
 import org.junit.Test;
