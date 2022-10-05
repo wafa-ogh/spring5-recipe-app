@@ -41,7 +41,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe findById(Long l) {
+    public Recipe findById(String l) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
@@ -54,22 +54,25 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public RecipeCommand findCommandById(Long l) {
+    public RecipeCommand findCommandById(String l) {
         return recipeToRecipeCommand.convert(findById(l));
     }
 
     @Override
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+        Optional<Recipe> old = recipeRepository.findById(command.getId());
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
-
+        if(old.isPresent()){
+            detachedRecipe.setImage(old.get().getImage());
+        }
         Recipe savedRecipe = recipeRepository.save(detachedRecipe);
         log.debug("Saved RecipeId:" + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
     }
 
     @Override
-    public void deleteById(Long idToDelete) {
+    public void deleteById(String idToDelete) {
         recipeRepository.deleteById(idToDelete);
     }
 }

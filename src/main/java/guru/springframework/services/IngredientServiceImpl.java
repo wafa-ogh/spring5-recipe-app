@@ -10,6 +10,7 @@ import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +38,7 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientCommand findByRecipeIdAndIngredientId(Long recipeId, Long ingredientId) {
+    public IngredientCommand findByRecipeIdAndIngredientId(String recipeId, String ingredientId) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
@@ -89,7 +90,7 @@ public class IngredientServiceImpl implements IngredientService {
             } else {
                 //add new Ingredient
                 Ingredient ingredient = ingredientCommandToIngredient.convert(command);
-                ingredient.setRecipe(recipe);
+                command.setId(ingredient.getId());
                 recipe.addIngredient(ingredient);
             }
 
@@ -110,14 +111,16 @@ public class IngredientServiceImpl implements IngredientService {
             }
 
             //to do check for fail
-            return ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+            IngredientCommand ingredientCommand = ingredientToIngredientCommand.convert(savedIngredientOptional.get());
+            ingredientCommand.setRecipeId(savedRecipe.getId());
+            return ingredientCommand;
         }
 
     }
 
     @Override
     @Transactional
-    public void deleteIngredientCommand(Long recipeId, Long ingredientId) {
+    public void deleteIngredientCommand(String recipeId, String ingredientId) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
 
         if(!recipeOptional.isPresent()){

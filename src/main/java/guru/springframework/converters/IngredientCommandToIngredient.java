@@ -3,6 +3,7 @@ package guru.springframework.converters;
 import guru.springframework.commands.IngredientCommand;
 import guru.springframework.domain.Ingredient;
 import guru.springframework.domain.Recipe;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -27,13 +28,8 @@ public class IngredientCommandToIngredient implements Converter<IngredientComman
         }
 
         final Ingredient ingredient = new Ingredient();
-        ingredient.setId(source.getId());
-
-        if(source.getRecipeId() != null){
-            Recipe recipe = new Recipe();
-            recipe.setId(source.getRecipeId());
-            ingredient.setRecipe(recipe);
-            recipe.addIngredient(ingredient);
+        if(StringUtils.isNotBlank(source.getId())){
+            ingredient.setId(source.getId());
         }
 
         ingredient.setAmount(source.getAmount());
